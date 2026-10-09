@@ -1,0 +1,14 @@
+Terminal 1:
+ollama serve
+ollama list
+ollama run llama3.2:3b
+cd "$HOME/GitHub/curso IA alan voidt"
+source .venv/bin/activate
+deepeval set-ollama --model=llama3.2:3b
+deepeval diagnose
+deepeval test run src/test/deepeval/<test_name>.py
+
+Encerrar ollama
+sudo systemctl stop ollama
+
+https://peterfalkingham.com/2025/10/27/using-local-ai-llm-in-vs-code-without-third-party-software/
