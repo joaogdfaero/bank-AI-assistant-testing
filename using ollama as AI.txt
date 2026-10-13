@@ -2,11 +2,17 @@ Terminal 1:
 ollama serve
 ollama list
 ollama run llama3.2:3b
-cd "$HOME/GitHub/curso IA alan voidt"
+cd "$HOME/GitHub/bank-AI-assistant-testing"
 source .venv/bin/activate
 deepeval set-ollama --model=llama3.2:3b
 deepeval diagnose
-deepeval test run src/test/deepeval/<test_name>.py
+deepeval test run src/test/deepeval/test_faq_answers.py
+
+Para executar apenas um cenario, use o id do pytest:
+deepeval test run src/test/deepeval/test_faq_answers.py -k login
+
+O avaliador local pode demorar. Se o DeepEval encerrar uma chamada por timeout, aumente o limite por tentativa:
+DEEPEVAL_PER_ATTEMPT_TIMEOUT_SECONDS_OVERRIDE=240 deepeval test run src/test/deepeval/test_faq_answers.py
 
 Encerrar ollama
 sudo systemctl stop ollama
