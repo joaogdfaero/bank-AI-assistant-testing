@@ -1,4 +1,4 @@
-# Local Bank AI Chat with DeepEval
+# Bank AI Assistant Testing
 
 This project implements a fictional banking FAQ assistant running locally, using:
 
