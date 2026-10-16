@@ -1,6 +1,6 @@
-# Local Bank AI RAG Chat with DeepEval
+# Bank AI Assistant Testing
 
-This project is a local **Retrieval-Augmented Generation (RAG)** experiment for a fictional banking FAQ assistant. It tests both retrieval of relevant FAQ content and the quality of the answer generated from that context, using:
+This project is a local **Retrieval-Augmented Generation (RAG)** evaluation experiment for a fictional banking FAQ assistant. It tests both retrieval of relevant FAQ content and the quality of the answer generated from that context, using:
 
 - Python
 - ChromaDB for vector search
