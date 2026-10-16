@@ -19,6 +19,8 @@ model = OllamaModel(
     temperature=0,
 )
 
+## TESTE SIMPLES PARA VALIDAR O COMPORTAMENTO DO MODELO COM UMA PERGUNTA DE LOGIN
+
 
 @pytest.fixture(scope="module")
 def login_test_case():

@@ -1,13 +1,13 @@
-# Local Bank AI Chat with DeepEval
+# Local Bank AI RAG Chat with DeepEval
 
-This project implements a fictional banking FAQ assistant running locally, using:
+This project is a local **Retrieval-Augmented Generation (RAG)** experiment for a fictional banking FAQ assistant. It tests both retrieval of relevant FAQ content and the quality of the answer generated from that context, using:
 
 - Python
 - ChromaDB for vector search
 - Ollama for local language and embedding models
 - DeepEval for automated answer evaluation
 
-The goal is to test a banking support chatbot that answers questions about Nubank using a Portuguese FAQ dataset without depending on external APIs.
+The goal is to evaluate a banking support chatbot that answers questions about Nubank using a Portuguese FAQ dataset, without depending on external AI APIs.
 
 ## Overview
 
@@ -18,13 +18,15 @@ The project flow is:
 3. Index the documents in ChromaDB
 4. Query the knowledge base through semantic retrieval
 5. Generate answers with a local AI model
-6. Validate answer quality with DeepEval tests
+6. Evaluate retrieval and generated answers with DeepEval RAG metrics
+
+The evaluation is focused on the RAG pipeline—not only on whether the final answer sounds relevant. It checks the retrieved context as well as whether the generated answer is supported by that context.
 
 ## Main structure
 
 - `src/chat/index_faq.py` — indexes the FAQ in a local vector database
 - `src/chat/chat.py` — runs the local RAG chatbot
-- `src/test/deepeval/test_faq_answers.py` — automated tests using DeepEval
+- `src/test/deepeval/test_faq_answers.py` — RAG tests using DeepEval metrics
 - `docs/faq_nubank_por_tema/` — FAQ corpus organized by topic
 - `data/vector_store/` — local ChromaDB storage
 
@@ -129,7 +131,15 @@ deepeval diagnose
 
 ## 8) Run the project tests
 
-To run the full FAQ evaluation test suite:
+The parameterized test scenarios evaluate each question-answer interaction with these DeepEval metrics:
+
+- **Answer relevancy** — whether the generated answer addresses the user's question
+- **Faithfulness** — whether claims in the answer are supported by the retrieved context
+- **Contextual relevancy** — whether the retrieved FAQ context is relevant to the question
+- **Contextual precision** — whether relevant context is ranked ahead of irrelevant context
+- **Contextual recall** — whether the retrieved context contains the information needed by the reference answer
+
+The tests also assert that the expected FAQ was retrieved. To run the full RAG evaluation suite:
 
 ```bash
 cd ~/GitHub/bank-AI-assistant-testing
@@ -169,7 +179,7 @@ sudo systemctl stop ollama
 
 ## Notes
 
-This project is an example of a local RAG + evaluation workflow using AI in a development environment without depending on external providers. The focus is on validating the quality of assistant responses using DeepEval metrics against real FAQ questions.
+This project is an example of a local **RAG (Retrieval-Augmented Generation) system** and its evaluation. DeepEval checks both retrieval quality and answer quality against real questions from the FAQ corpus. In particular, contextual precision and recall help evaluate retrieval, while faithfulness checks grounding and answer relevancy checks whether the response addresses the question. All inference and evaluation use local Ollama models.
 
 ## Recommended execution flow
 

@@ -3,7 +3,13 @@ from pathlib import Path
 
 import pytest
 from deepeval import assert_test
-from deepeval.metrics import AnswerRelevancyMetric
+from deepeval.metrics import (
+    AnswerRelevancyMetric,
+    ContextualPrecisionMetric,
+    ContextualRecallMetric,
+    ContextualRelevancyMetric,
+    FaithfulnessMetric,
+)
 from deepeval.models import OllamaModel
 from deepeval.test_case import LLMTestCase
 
@@ -103,10 +109,33 @@ def test_chat_answers_faq_question(
         expected_output=source_faq["answer"],
         retrieval_context=[faq["document"] for faq in retrieved_faqs],
     )
-    metric = AnswerRelevancyMetric(
-        threshold=0.8,
-        model=MODEL,
-        include_reason=True,
-    )
+    
+    metrics = [
+        AnswerRelevancyMetric(
+            threshold=0.8,
+            model=MODEL,
+            include_reason=True,
+        ),
+        FaithfulnessMetric(
+            threshold=0.7,
+            model=MODEL,
+            include_reason=True,
+        ),
+        ContextualRelevancyMetric(
+            threshold=0.7,
+            model=MODEL,
+            include_reason=True,
+        ),
+        ContextualPrecisionMetric(
+            threshold=0.7,
+            model=MODEL,
+            include_reason=True,
+        ),
+        ContextualRecallMetric(
+            threshold=0.7,
+            model=MODEL,
+            include_reason=True,
+        ),
+    ]
 
-    assert_test(test_case, [metric], run_async=False)
+    assert_test(test_case, metrics, run_async=False)
